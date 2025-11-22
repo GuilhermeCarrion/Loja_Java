@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Bem Vindo ! - Loja Java</title>
-<link href="../Styles/styles.css" rel="stylesheet">
+<!-- CORRETO: Usa o context path da aplicação -->
+<link href="${pageContext.request.contextPath}/Styles/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -18,7 +19,8 @@
    			<p style="color: #c62828; text-align:center; font-weight:bold;"><%= erro %></p>
 		<% } %>
         
-        <form action="../login" method="post">
+        <!-- CORRETO: Action usa caminho absoluto -->
+        <form action="${pageContext.request.contextPath}/login" method="post">
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
@@ -29,13 +31,9 @@
             </div>
             <button type="submit" class="btn-login">Entrar</button>
         </form>
-        
-        <% if(request.getAttribute("erro") != null){ %>
-		    <p style="color:red"><%= request.getAttribute("erro") %></p>
-		<% } %>
 
         <div class="login-footer">
-            <p>Não tem uma conta? <a href="../cliente/cadastro.jsp">Cadastre-se</a></p>
+            <p>Não tem uma conta? <a href="${pageContext.request.contextPath}/cliente/cadastro.jsp">Cadastre-se</a></p>
         </div>
     </div>
 </body>

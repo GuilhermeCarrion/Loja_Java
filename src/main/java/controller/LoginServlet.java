@@ -8,7 +8,7 @@ import java.io.IOException;
 import DAO.UsuarioDAO;
 import model.Usuario;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	
 	@Override
@@ -27,12 +27,18 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuarioLogado", usuario);
 			
-			response.sendRedirect("Pages/index.jsp");
+			// Verificando se ja completou cadastro (clientes table)
+			if(usuario.getId_cliente() == null) {
+				response.sendRedirect(request.getContextPath() + "/cliente/comp_cad.jsp");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/pages/index.jsp");
+			}
+			
 		}else {
 			// Erro no login
 			
 			request.setAttribute("erro", "Email ou senha incorretos");
-			RequestDispatcher rd = request.getRequestDispatcher("Pages/login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(request.getContextPath() + "/pages/login.jsp");
 			rd.forward(request, response);
 		}
 	}

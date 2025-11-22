@@ -10,22 +10,23 @@ import java.util.List;
 public class UsuarioDAO {
 	
 	public void inserir(Usuario u) {
-		String sql = "INSERT INTO usuarios (id_cliente, email, senha) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO usuarios (id_cliente, email_usuario, senha_usuario) VALUES (?, ?, ?)";
 		
 		try(Connection conn = ConnectionFactory.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql)){
+			PreparedStatement stmt = conn.prepareStatement(sql)){
 			
 			if(u.getId_cliente() != null) {
-				ps.setInt(1, u.getId_cliente());
+				stmt.setInt(1, u.getId_cliente());
 			}else {
-				ps.setNull(1, Types.INTEGER);
+				stmt.setNull(1, Types.INTEGER);
 			}
 			
-			ps.setString(2, u.getEmail());
-			ps.setString(3, u.getSenha());
+			stmt.setString(2, u.getEmail());
+			stmt.setString(3, u.getSenha());
 			
-			ps.executeUpdate();
+			stmt.executeUpdate();
 		} catch (SQLException e) {
+			System.err.println("Erro ao inserir usuário: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -35,10 +36,10 @@ public class UsuarioDAO {
 		Usuario u = null;
 		
 		try(Connection conn = ConnectionFactory.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql)){
+			PreparedStatement stmt = conn.prepareStatement(sql)){
 			
-			ps.setString(1, email);
-			ResultSet rs = ps.executeQuery();
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
 				u = new Usuario();
@@ -46,8 +47,14 @@ public class UsuarioDAO {
 				u.setEmail(rs.getString("email_usuario"));
 				u.setSenha(rs.getString("senha_usuario"));
 				u.setId_cliente(rs.getInt("id_cliente"));
+				
+				int idCliente = rs.getInt("id_cliente");
+				if(!rs.wasNull()) {
+					u.setId_cliente(idCliente);
+				}
 			}
 		} catch (SQLException e) {
+			System.err.println("Erro ao buscar usuário: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -62,5 +69,23 @@ public class UsuarioDAO {
 		}
 		
 		return null;
+	}
+	
+	public boolean vincularCliente(int idUsuario, int idCliente) {
+		String sql = "UPDATE usuarios SET id_cliente = ? WHERE id_usuario = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)){
+			
+			stmt.setInt(1, idCliente);
+			stmt.setInt(2, idUsuario);
+			
+			int totAfetado = stmt.executeUpdate();
+			return totAfetado > 0;
+		} catch (SQLException e) {
+			System.err.println("Erro ao vincular cliente: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

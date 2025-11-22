@@ -44,7 +44,8 @@ label {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
@@ -54,13 +55,15 @@ input[type="password"] {
 }
 
 input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="text"]:focus {
     border-color: #c62828;
     outline: none;
 }
 
 /* ===== BOTÃO ===== */
-.btn-login {
+.btn-login,
+.btn {
     width: 100%;
     padding: 12px;
     background-color: #c62828;
@@ -73,7 +76,8 @@ input[type="password"]:focus {
     transition: background-color 0.3s ease;
 }
 
-.btn-login:hover {
+.btn-login:hover,
+.btn:hover {
     background-color: #a31818;
 }
 

@@ -27,6 +27,6 @@ public class RegisterServlet extends HttpServlet{
 		 
 		 dao.inserir(u);
 		 
-		 response.sendRedirect("Pages/login.jsp");
+		 response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
 	 }
 }
