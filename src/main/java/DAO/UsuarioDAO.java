@@ -88,4 +88,22 @@ public class UsuarioDAO {
 			return false;
 		}
 	}
+	
+	public boolean atualizarSenha(int idUsuario, String novaSenha) {
+		String sql = "UPDATE usuarios SET senha_usuario = ? WHERE id_usuario = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)){
+			stmt.setString(1, novaSenha);
+			stmt.setInt(2, idUsuario);
+			
+			int totAfetado = stmt.executeUpdate();
+			
+			return totAfetado > 0;
+		} catch (SQLException e) {
+			System.err.println("Erro ao atualizar senha: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

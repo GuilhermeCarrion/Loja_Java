@@ -31,6 +31,11 @@
         <input type="hidden" name="action" value="completar_cadastro">
         
         <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required style="background-color: #f5f5f5;">
+        </div>
+        
+        <div class="form-group">
             <label for="nome">CPF:</label>
             <input type="text" id="cpf" name="cpf" placeholder="Ex: 000.000.000-00" required style="background-color: #f5f5f5;">
         </div>

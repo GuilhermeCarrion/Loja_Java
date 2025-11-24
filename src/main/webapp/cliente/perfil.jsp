@@ -14,7 +14,7 @@
     Cliente cliente = clienteDAO.buscarPorId(usuario.getId_cliente());
     
     if(cliente == null) {
-        response.sendRedirect(request.getContextPath() + "/cliente/completar_cadastro.jsp");
+        response.sendRedirect(request.getContextPath() + "/cliente/comp_cad.jsp");
         return;
     }
 %>
@@ -83,18 +83,23 @@
         <input type="hidden" name="action" value="atualizar">
         
         <div class="form-group">
-            <label for="nome">CPF: </label>
-            <input type="text" id="nome" name="nome" value="<%= cliente.getCpf_cliente() %>" required>
+            <label for="nome">Nome: </label>
+            <input type="text" id="nome" name="nome" value="<%= cliente.getNome_cliente() %>" required>
         </div>
         
         <div class="form-group">
-            <label for="email">Endereço: </label>
-            <input type="email" id="email" name="email" value="<%= cliente.getEndereco_cliente() %>" required>
+            <label for="cpf">CPF: </label>
+            <input type="text" id="cpf" name="cpf" value="<%= cliente.getCpf_cliente() %>" required>
         </div>
         
         <div class="form-group">
-            <label for="email">Telefone: </label>
-            <input type="email" id="email" name="email" value="<%= cliente.getTelefone_cliente() %>" required>
+            <label for="endereco">Endereço: </label>
+            <input type="text" id="endereco" name="endereco" value="<%= cliente.getEndereco_cliente() %>" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="telefone">Telefone: </label>
+            <input type="text" id="telefone" name="telefone" value="<%= cliente.getTelefone_cliente() %>" required>
         </div>
         
         <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
